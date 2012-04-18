@@ -1,12 +1,6 @@
 ﻿				$(document).ready(function(){
 				
-					 	$('.multid').MultiFile({
-					max: 1,
-					accept: 'gif|jpg|png|bmp|swf|jpeg',
-						STRING: {
-							file: '$file <br/> <input type="text" title="Si es necesario escribe la descripci&oacute;n del archivo" value="Si es necesario escribe la descripci&oacute;n del archivo" class="text" size="60" name="imageDescrip[]"/>',
-						}
-					});
+					 $(".multiselect").multiselect();
 					
 					$("#id_zone").live("change", function(){
 						$("#image").fadeIn();
@@ -77,8 +71,14 @@
 					$('#add').ajaxForm(options); 
 				
 					
-					
-				
+					$('#wysiwyg').wysiwyg();
+					$('.multid').MultiFile({
+					max: 1,
+					accept: 'gif|jpg|png|bmp|swf|jpeg',
+						STRING: {
+							file: '$file <br/> <input type="text" title="Si es necesario escribe la descripci&oacute;n del archivo" value="Si es necesario escribe la descripci&oacute;n del archivo" class="text" size="60" name="imageDescrip[]"/>',
+						}
+					});
 
 				});
 				
@@ -92,7 +92,7 @@
 
  
 				function showResponse(responseText, statusText, xhr, $form)  { 
-				alert(responseText);
+				//alert(responseText);
 					if(responseText!=1){
 						$(".errorBox").fadeIn();
 						$(".success").fadeOut();

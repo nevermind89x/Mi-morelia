@@ -9,22 +9,27 @@ if (!$typeOfUser) $where = " WHERE id_user = $idUser";
 */
 
 
-/*
-$canEdit = fAuthorization::checkACL('franchise', 'edit');
-$canDelete = fAuthorization::checkACL('franchise', 'delete');
-*/
+
+$canEdit = fAuthorization::checkACL('geolocation', 'edit');
+$canDelete = fAuthorization::checkACL('geolocation', 'delete');
+
+fSession::open();
+$idUser = fSession::get(SESSION_ID_USER);
+if(empty($idUser) || (!fAuthorization::checkACL("geolocation", "delete") && !fAuthorization::checkACL("geolocation", "edit"))) {
+	//header('Location: '.SITE);
+	exit("No se ha podido acceder a esta secci&oacite;n");
+}
 $canEdit = true;
 $canDelete = true;
 
 $typeOfUser = (fAuthorization::checkAuthLevel('super'));
-
 $where = "";
-if (!$typeOfUser) $where = " WHERE " . fSession::get('where_at');
+//if (!$typeOfUser) $where = " WHERE " . fSession::get('where_at');
 
 ?>
 <?php
-	$section = 'observatorio';
-	$section_id = 22;
+	$section = 'geolocation';
+	$section_id = 2;
 	$sub = 'list';
 ?>	
 <?php
@@ -34,16 +39,16 @@ if($page < 1) exit();
 $start = ($page - 1) * $limit;
 
 $av = fRecordSet::buildFromSQL(
-	'Observatorio',
-	"SELECT * FROM observatorio $where LIMIT $start,$limit",
-	"SELECT count(*) FROM observatorio $where",
+	'EconomicUnit',
+	"SELECT * FROM economic_units $where LIMIT $start,$limit",
+	"SELECT count(*) FROM economic_units $where",
 	$limit, // $limit
 	$page  // $page
 );
 
 if($av->count() == 0) { 
 echo '<div class="notification information" >
-								Por el momento no hay registros en <b> Observatorio </b>.
+								Por el momento no hay registros en <b> Geolocalizaci&oacute;n </b>.
 							</div>';
 } else {
 
@@ -56,10 +61,14 @@ $pagination = $p->getPaginationLinks();
 <table class="contenttoc" style="width:auto; float:none">
 	<tr>
 		<th> <input type="checkbox" name="check" id="check" /> </th>
-		<th> T&iacute;tulo </th>
-		<th> Texto </th>
-		<th> Regi&oacute;n </th>
-		<th> Estado </th>
+		<th> Nombre </th>
+		<th> Tipo de Vialidad </th>
+		<th> Descripci&oacute;n </th>
+		<th> Calle </th>
+		<th> N&uacute;mero </th>
+		<th> Tel&eacute;fono </th>
+		<th> Activo </th>
+		<th> Verificado </th>
 	<?php if($canEdit): ?> <th> Editar </th> <?php endif; ?>
 	<?php if($canDelete): ?> <th> Eliminar </th> <?php endif; ?>
 	</tr>
@@ -68,37 +77,34 @@ $pagination = $p->getPaginationLinks();
 	// $users = $user->getAll();
 	foreach($av as $a): 
 	
-		$id = $a->prepareIdObservatorio();
+		$id = $a->prepareEconomic_unit_id();
 		
 		
 		echo '<tr><td> <input type="checkbox" class="check" value="' . $id . '" name="args[]" /> </td>';
 						
-		echo '<td> ' . $a->prepareTitle() . ' </td>';
+		echo '<td> ' . $a->prepareEconomic_unit_name() . ' </td>';
+		echo '<td> ' . $a->prepareEconomic_unit_street_type() . ' </td>';
 		echo '
-			<td> ' . substr($a->prepareDescription(),0,30) . ' </td>
+			<td> ' . substr($a->prepareEconomic_unit_description(),0,30) . ' </td>
 		';
-						
-		echo '<td>';	
-			$idRegion = $a->prepareIdRegion();
-			if (!empty($idRegion)):
-			try {
-				$region = new Region($idRegion);
-				echo $region->prepareName();
-			} catch(Exception $e){
-				echo "Sin regi&oacute;n";
-			}
-			endif;
-						
-		echo '</td>';
+		echo '<td> ' . $a->prepareEconomic_unit_street_name() . ' </td>';		
+		echo '<td> ' . $a->prepareEconomic_unit_location_number	() . ' </td>';
+		echo '<td> ' . $a->prepareEconomic_unit_phone() . ' </td>';		
 		
-				$status = $a->getStatus();
+		
+				$status = $a->getActive();
 		$status = ($status == true || $status == "Yes" || $status == 1) ? "Activo" : "Inactivo";
+		
+		echo '<td> '. $status . "</td>";
+				$status = $a->getVerified();
+		$status = ($status == true || $status == "Yes" || $status == 1) ? "Verificado" : "No verificado";
 		
 		echo '<td> '. $status . "</td>";
 		if($canEdit)
 		echo '<td><center><a href="edit.php?id='.$id.'"><img src="' . ICON . 'edit.png" /></a> </center></td>';
 		if($canDelete)
 		echo '<td><center><a id="'.$id.'" class="eliminar" href="javascript:deleteIt(' . $id . ')"><img src="' . ICON . 'delete.png" /> </a> </center> </td>';
+		
 		echo '</tr>';
 			
 	endforeach;

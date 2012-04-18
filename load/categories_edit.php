@@ -1,21 +1,20 @@
 <?php
 $id = fRequest::encode('id','integer');
-$s = fRequest::encode('s','integer');
+$s = fRequest::encode('id_section','integer');
 
-if(!fAuthorization::checkAuthLevel('super')) {
-				$isOwner = fRecordSet::build('Category', array('id_category=' => $id, 'id_region='=>fSession::get('regs')));
-				$count = $isOwner->count() > 0;
-			
-				if(!$count) 
-					exit("0");
-	}
+
 	
 	
 try {
- $category = new Category(array("id_section" => $s, "id_category" => $id));
-} catch (Exception $e) {}
- 
- $category->setName(fRequest::encode('name','string'));
+ if ($s != 2) {
+	$category = new Category(array("id_section" => $s, "id_category" => $id));
+	$category->setName(fRequest::encode('name','string'));
+} else {
+	$category = new EconomicUnitCategory($id);
+	$category->setEconomicUnitCategoryName(fRequest::encode('name','string'));
+}		
+
+} catch (Exception $e) {} 
 
  
 try { $category->store();

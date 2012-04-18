@@ -1,13 +1,12 @@
 <?php
 require_once '../init.php';
-$section = 'observatorio';
-$section_id = 22;
-$sub = 'listObs';
+$section = 'geolocation';
+$section_id = 25;
+$sub = 'list';
 
 fSession::open();
 			$idUser = fSession::get(SESSION_ID_USER);
-			//if(empty($idUser) || (!fAuthorization::checkACL($section, "delete") && !fAuthorization::checkACL($section, "edit"))) {
-			if(empty($idUser)) {
+			if(empty($idUser) || (!fAuthorization::checkACL($section, "delete") && !fAuthorization::checkACL($section, "edit"))) {
 				header('Location: '.SITE);
 				exit("No se ha podido acceder a esta secci&oacite;n");
 			}

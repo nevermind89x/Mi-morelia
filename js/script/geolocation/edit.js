@@ -42,7 +42,7 @@ function showRequest(formData, jqForm, options) {
 } 
 
 function showResponse(responseText, statusText, xhr, $form)  { 
-//	alert(responseText);
+	alert(responseText);
 	if(responseText!=1){
 			$("#loader").fadeOut(2000);
 						$(".success").fadeOut();

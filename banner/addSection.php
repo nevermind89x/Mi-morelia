@@ -32,6 +32,7 @@ require_once INCLUDES.'header.php';
 							<br/>
 					<form id="addSection" action="<?php echo SITE ?>do.php" method="post">
 						<table class="contenttoc" style="float:none">
+							
 							<tr>
 								<td><label for="zone"> Es Zona </label></td>
 								<td>

@@ -1,12 +1,11 @@
 <?php
 require_once '../init.php';
-$section = 'observatorio';
-$sub = 'addObs';
+$section = 'geolocation';
+$sub = 'add';
 
 fSession::open();
 			$idUser = fSession::get(SESSION_ID_USER);
-			//if(empty($idUser) || !fAuthorization::checkACL($section, "add")) {
-			if(empty($idUser)) {
+			if(empty($idUser) || !fAuthorization::checkACL($section, "add")) {
 				header('Location: '.SITE);
 				exit("No se ha podido acceder a esta secci&oacite;n");
 			}
@@ -16,9 +15,9 @@ require_once INCLUDES.'header.php';
 
 			<link rel="stylesheet" href="<?php echo CSS ?>ui-lightness/jquery-ui-1.8.16.custom.css" type="text/css" />
 			<link rel="stylesheet" href="<?php echo JS ?>jwysiwyg/jquery.wysiwyg.css" type="text/css" />
-			
+			<link rel="stylesheet" href="<?php echo CSS ?>multiselect.css" type="text/css" />
 			<script type="text/javascript" src="<?php echo JS ?>jwysiwyg/jquery.wysiwyg.js"></script>
-			
+			<script type="text/javascript" src="<?php echo JS ?>upload/jquery.MultiFile.js"></script>
 			<script type="text/javascript" src="<?php echo JS ?>jquery.form.js"></script>
 			<script type="text/javascript" src="<?php echo JS ?>jquery-ui-1.8.16.custom.min.js"></script>
 			<script type="text/javascript" src="<?php echo JS ?>jquery.ui.core.min.js"></script>
@@ -31,6 +30,18 @@ require_once INCLUDES.'header.php';
 
 			<script type="text/javascript">
 				$(document).ready(function() {
+				
+				$("#addVideo").live("click",function(){
+						$('<tr><td><label for="video"> Video </label></td><td><input type="text" name="video[]" size="80"/><br/><input type="text" class="text" size="80" name="descrip2[]" title="Si es necesario escribe la descripci&oacute;n del video" value="Si es necesario escribe la descripci&oacute;n del video"/></td></tr> ').insertAfter($("#videos"));
+					});
+					
+					$('.multid').MultiFile({
+						max: 20,
+						STRING: {
+							file: SITE + '$file <br/> <input type="text" title="Si es necesario escribe la descripci&oacute;n del archivo" value="Si es necesario escribe la descripci&oacute;n del archivo" class="text" size="80" name="imageDescrip[]"/>',
+						}
+					});
+					
 					$(".wysiwyg").wysiwyg();
 					initialize();
 					//codeAddress();
@@ -130,10 +141,7 @@ require_once INCLUDES.'header.php';
 				}
 			</script>
 			<style>
-			.ui-autocomplete {width:300px; }
-			.ui-corner-all {
-				padding:3px;
-			}
+			
 			</style>
 			
 			
@@ -148,11 +156,11 @@ require_once INCLUDES.'header.php';
 							</div>
 							<br/>
 					<form action="../do.php" method="post" id="add">
-						<input type="hidden" name="latitude" id="lat" value="" />
-						<input type="hidden" name="longitude" id="lon" value="" />
+							<input type="hidden" name="latitude" id="lat" value="0" />
+						<input type="hidden" name="longitude" id="lon" value="0" />
 						<input type="hidden" name="request_token" value="<?php echo fRequest::generateCSRFToken(SITE . "do.php") ?>" />
 						
-						<input type="hidden" name="whatToDo" value="observatorio_add" />
+						<input type="hidden" name="whatToDo" value="geolocation_add" />
 						
 						<table  class="contenttoc" style="float:left">
 						
@@ -196,48 +204,15 @@ require_once INCLUDES.'header.php';
 								
 									
 							
-					<?php if(fAuthorization::checkAuthLevel('super')): ?>
-							<tr class="regionRow">
-								<td><label>Región</label></td>
-								<td>
-									<select class="state" name="state">
-										<option value="0">Estado</option>
-										<?php
-										$r = Region::findAll(1);
-										foreach($r as $item): ?>
-										<option value="<?php echo $item->prepareIdRegion() ?>"><?php echo $item->prepareName() ?></option>
-										<?php endforeach ?>
-									</select>
-									<select class="region" name="region">
-										<option value="0">Municipio</option>
-									</select>
-									<!-- <a id="anotherRegion" href="" style="margin-right:20px">Agregar otro municipio</a> -->
-								</td>
-							</tr>
-							<?php else: ?>
-							
-							<?php 
-							$ur = new UserRegion();
-							$userRegions = $ur->getByIdUser($idUser);
-					    ?>		
-						<tr>
-						 <td><label for="regions"> Regiones </label></td><td>
-								    <select id="regions" name="region">
-
-   <?php
-										foreach($userRegions as $r) {
-											$region = new Region($r->prepareId_region());
-											
-											echo '<option value="' . $region->prepareId_region() . '"> ' . $region->prepareName() . ' </option>';
-										}
-									?>
-  </select>
-  <center><span id="selectR" style="display:none;"> <b>Selecciona una regi&oacute;n</b></span></center>
-</td>
+				<tr id="videos">
+							<td><label for="video">Video(Link youtube, vimeo, etc)</label></td>
+							<td> <input type="text" name="video[]" size="80"/> <br/> <input type="text" class="text" size="80" name="descrip2[]" title="Si es necesario escribe la descripci&oacute;n del video" value="Si es necesario escribe la descripci&oacute;n del video"/><a href="javascript:" id="addVideo" ><img  style="vertical-align:middle; margin-bottom:5px;" src="<?php echo ICON ?>add.png" /> </a></td>
 						</tr>
-							<?php endif ?>
 							
-							
+						<tr>
+						 <td><label for="images">Archivos</label></td>
+						 <td><input type="file" class="multid" name="files[]"/></td>
+						</tr>
 							
 						<tr>
 							<td> <label for="status"> Estado <label> </td> 
@@ -267,7 +242,27 @@ require_once INCLUDES.'header.php';
 						</table>
 						<table style="margin-left:20px; float:left">
 								<tr><td><div id="map_canvas" style="width:500px;height:300px"></div></td></tr>
+								<tr>
+								<td>
+									<label for="subgiro">
+									Categor&iacute;as
+									</label>
+								</td>
 								
+								
+							</tr>
+							<tr>
+							<td>
+									<select name="cat[]" class="multiselect" style="width:500px; height:200px;" multiple="multiple">
+											<?php
+												$subg = EconomicUnitCategory::findAll();
+												foreach($subg as $sg){
+													echo '<option value="'.$sg->prepareEconomic_unit_category_id().'"> '.$sg->prepareEconomic_unit_category_name().'</option>' ;
+												}
+											?>
+									</select>
+								</td>
+							</tr>
 						</table>
 					</form>
 				</div>

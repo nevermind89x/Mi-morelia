@@ -22,7 +22,7 @@
 		
 		if( $("#query").val() != "Búsqueda..") {
 			doThis({
-			do:'observatorio_search',
+			do:'geolocation_search',
 			additional:'p='+$(this).attr('title')+'&limit='+$("#limit").val()+'&query='+$("#query").val(),
 			beforeSend:function() {},
 			error:function() {},
@@ -32,7 +32,7 @@
 		});
 		} else {
 		doThis({
-			do:'observatorio_list',
+			do:'geolocation_list',
 			additional:'p='+$(this).attr('title')+'&limit='+$("#limit").val(),
 			beforeSend:function() {},
 			error:function() {},
@@ -48,7 +48,7 @@
 		if (e.which == 13) {
 		
 		doThis({
-			do:'observatorio_search',
+			do:'geolocation_search',
 			additional:'p=1&limit='+$("#limit").val()+'&query='+$(this).val(),
 			beforeSend:function() {},
 			error:function() {},
@@ -63,7 +63,7 @@
 	$("#limit").keyup(function(){
 	if( $("#query").val() != "Búsqueda..") {
 		doThis({
-		do:'observatorio_search',
+		do:'geolocation_search',
 		additional:'p=1'+'&limit='+$(this).val()+'&query='+$("#query").val(),
 		success:function(data) {
 			$('div#franchise').html(data);
@@ -71,7 +71,7 @@
 	});
 	} else {
 	doThis({
-		do:'observatorio_list',
+		do:'geolocation_list',
 		additional:'p=1'+'&limit='+$(this).val(),
 		success:function(data) {
 			$('div#franchise').html(data);
@@ -99,7 +99,7 @@
 						$.ajax({
 							url: DO,
 							type: 'POST',
-							data: 'whatToDo=observatorio_delete&id='+items,
+							data: 'whatToDo=geolocation_delete&id='+items,
 							beforeSend: function() {
 								$("#loader").fadeIn(1000);
 							},

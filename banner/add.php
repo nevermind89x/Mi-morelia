@@ -3,25 +3,35 @@ require_once '../init.php';
 $section = 'banner';
 $sub = 'add';
 		fSession::open();
-			$idUser = fSession::get(SESSION_ID_USER);
-			//if(empty($idUser) || !fAuthorization::checkACL($section, $sub)) {
-			if(empty($idUser)) {
-				header('Location: '.SITE);
-				exit("No se ha podido acceder a esta secci&oacite;n");
-			}
+		$idUser = fSession::get(SESSION_ID_USER);
+		if(empty($idUser) || !fAuthorization::checkACL($section, $sub)) {
+			header('Location: '.SITE);
+			exit("No se ha podido acceder a esta secci&oacite;n");
+		}
 require_once  INCLUDES.'header.php';
 ?>
+			<link rel="stylesheet" href="<?php echo JS ?>jwysiwyg/jquery.wysiwyg.css" type="text/css" />
+			<link rel="stylesheet" href="<?php echo CSS ?>ui-lightness/jquery-ui-1.8.16.custom.css" type="text/css" />
 			
 			
-			
-			
+			<script type="text/javascript" src="<?php echo JS ?>jwysiwyg/jquery.wysiwyg.js"></script>
 			<script type="text/javascript" src="<?php echo JS ?>upload/jquery.MultiFile.js"></script>
 			<script type="text/javascript" src="<?php echo JS ?>jquery.form.js"></script>
-			<script src="<?php echo JS ?>jquery.validate.min.js"></script>
+			<script type="text/javascript" src="<?php echo JS ?>jquery-ui-1.8.16.custom.min.js"></script>
+			
+<link rel="stylesheet" href="<?php echo CSS ?>multiselect.css" type="text/css" />
+<script type="text/javascript" src="<?php echo JS ?>plugins/localisation/jquery.localisation-min.js"></script>
+<script type="text/javascript" src="<?php echo JS ?>plugins/scrollTo/jquery.scrollTo-min.js"></script>
+			<script type="text/javascript" src="<?php echo JS ?>ui.multiselect.js"></script>
+	<script src="<?php echo JS ?>jquery.validate.min.js"></script>
 			
 			
 			<script type="text/javascript" src="<?php echo SCRIPT . $section . DS .  $sub; ?>.js"></script>
-			
+			<script>
+			$(function(){
+				$("input.search").width(100);
+			});
+			</script>
 			<!-- MAIN CONTAINER -->
 			<div id="ja-container" class="wrap ja-r2">
 				<div class="main clearfix">
@@ -49,9 +59,9 @@ require_once  INCLUDES.'header.php';
 									<?php
 									$zones = fRecordSet::buildFromSQL(
 										'BannerSection',
-										'SELECT * FROM bannersection WHERE id_parent = 0 '
+										'SELECT * FROM bannersection WHERE id_parent = 0'
 									);
-									if ($zones->count() > 0) :
+									if ($zones->count() > 0):
 										foreach ($zones as $zone):
 									?>
 									<option value="<?=$zone->prepareIdBannersection()?>"><?=$zone->prepareName()?></option>
@@ -88,6 +98,7 @@ require_once  INCLUDES.'header.php';
 							<td><label for="content">Enlace</label></td>
 							<td><input type="text" name="link" size="50"/></td>
 						</tr>
+						
 						
 						<tr>
 						 <td><label for="images">Imagen</label></td>

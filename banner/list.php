@@ -5,8 +5,7 @@ $section_id = 1;
 $sub = 'list';
 fSession::open();
 			$idUser = fSession::get(SESSION_ID_USER);
-			//if(empty($idUser) || (!fAuthorization::checkACL($section, "delete") && !fAuthorization::checkACL($section, "edit"))) {
-			if(empty($idUser)) {
+			if(empty($idUser) || (!fAuthorization::checkACL($section, "delete") && !fAuthorization::checkACL($section, "edit"))) {
 				header('Location: '.SITE);
 				exit("No se ha podido acceder a esta secci&oacite;n");
 			}

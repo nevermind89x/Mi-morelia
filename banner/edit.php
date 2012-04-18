@@ -4,20 +4,12 @@ $section = 'banner';
 $sub = 'edit';
 fSession::open();
 			$idUser = fSession::get(SESSION_ID_USER);
-			//if(empty($idUser) || !fAuthorization::checkACL($section, $sub)) {
-			if(empty($idUser)) {
+			if(empty($idUser) || !fAuthorization::checkACL($section, $sub)) {
 				header('Location: '.SITE);
 				exit("No se ha podido acceder a esta secci&oacite;n");
 			}
 $id_banner = fRequest::encode('id','integer');
 
-	if(!fAuthorization::checkAuthLevel('super')) {
-				$isOwner = fRecordSet::build('BannerRegion', array('id_banner=' => $id_banner, 'id_region='=>fSession::get('regs')));
-				$count = $isOwner->count() > 0;
-			
-				if(!$count) 
-					header("Location: " . SITE);
-	}
 
 if(empty($id_banner)) header('Location: '.SITE);
 $site = str_replace('\\','/',SITE);
@@ -83,7 +75,7 @@ require_once  INCLUDES.'header.php';
 									<?php
 									$zones = fRecordSet::buildFromSQL(
 										'BannerSection',
-										'SELECT * FROM bannersection WHERE id_parent = 0 AND '.fSession::get('where_at')
+										'SELECT * FROM bannersection WHERE id_parent = 0'
 									);
 									try {
 										$z = new BannerSection($banner->prepareIdZone());
@@ -112,7 +104,7 @@ require_once  INCLUDES.'header.php';
 									<?php
 									$zones = fRecordSet::buildFromSQL(
 										'BannerSection',
-										'SELECT * FROM bannersection WHERE id_parent = '.$sec->prepareIdBannersection().' AND '.fSession::get('where_at')
+										'SELECT * FROM bannersection WHERE id_parent = '.$sec->prepareIdBannersection()
 									);
 									try {
 										$z = new BannerSection($banner->prepareIdZone());
@@ -153,6 +145,7 @@ require_once  INCLUDES.'header.php';
 							<td><input type="text" name="link" value="<?php echo $banner->prepareLink()?>" size="50"/></td>
 						</tr>
 						
+								
 						<?php
 							$resources = Resource::findForSection($id_banner, 1);
 							

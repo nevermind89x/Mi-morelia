@@ -12,7 +12,7 @@ $id_bannersection = fRequest::encode('id','integer');
 
 
 	if(!fAuthorization::checkAuthLevel('super')) {
-				$isOwner = fRecordSet::build('BannerSection', array('id_bannersection=' => $id_bannersection, 'id_region='=>fSession::get('regs')));
+				$isOwner = fRecordSet::build('BannerSection', array('id_bannersection=' => $id_bannersection));
 				$count = $isOwner->count() > 0;
 			
 				if(!$count) 
