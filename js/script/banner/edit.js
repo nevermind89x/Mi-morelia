@@ -69,7 +69,7 @@ $('#sections').live('change', function(){
 								$("#loader").fadeIn(1000);
 							},
 							success: function( data ) {
-							
+								alert(data);
 								$("#loader").fadeOut(2000);
 								$("#"+id_resource).fadeOut("slow");
 								
@@ -81,8 +81,7 @@ $('#sections').live('change', function(){
 				});
 				
 				function showRequest(formData, jqForm, options) { 
-						var count = $("#regions :selected").length;
-					if(count == 0) { $("#selectR").show(); return false; } else $("#selectR").hide();
+						
 					$("#loader").fadeIn(1000);
 				} 
 

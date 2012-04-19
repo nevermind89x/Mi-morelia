@@ -1,7 +1,7 @@
 <?php
 $typeOfUser = (fAuthorization::checkAuthLevel('super'));
 $where = " WHERE ";
-if (!$typeOfUser) $where = " WHERE id_banner IN (SELECT id_banner FROM bannerregion WHERE " . fSession::get('where_at') . ") AND ";
+
 
 $canEdit = fAuthorization::checkACL('banner', 'edit');
 $canDelete = fAuthorization::checkACL('banner', 'delete');
@@ -25,8 +25,8 @@ $start = ($page - 1) * $limit;
 //echo $start; echo $page;
 $banners = fRecordSet::buildFromSQL(
 	'Banner',
-	"SELECT * FROM banner $where (link LIKE '%$query%' OR id_section IN (SELECT id_section FROM section WHERE name LIKE '%$query%') OR id_banner IN (SELECT id_banner FROM bannerregion WHERE id_region IN (SELECT id_region FROM region WHERE name LIKE '%$query%'))) LIMIT $start,$limit",
-	"SELECT count(*) FROM banner $where (link LIKE '%$query%' OR id_section IN (SELECT id_section FROM section WHERE name LIKE '%$query%') OR id_banner IN (SELECT id_banner FROM bannerregion WHERE id_region IN (SELECT id_region FROM region WHERE name LIKE '%$query%')))",
+	"SELECT * FROM banner $where (link LIKE '%$query%' OR id_section IN (SELECT id_section FROM section WHERE name LIKE '%$query%')) LIMIT $start,$limit",
+	"SELECT count(*) FROM banner $where (link LIKE '%$query%' OR id_section IN (SELECT id_section FROM section WHERE name LIKE '%$query%'))",
 	$limit, // $limit
 	$page  // $page
 );
@@ -40,7 +40,7 @@ $pagination = $p->getPaginationLinks();
 					<th> Imagen </th>
 					<th> Link </th>
 					<th> Secci&oacuteln  </th>
-					<th> Region </th>
+					
 					<th> Orden </th>
 					<th> Estado </th>
 					<th> Fecha de publicaci&oacute;n </th>
@@ -57,7 +57,7 @@ $pagination = $p->getPaginationLinks();
 				
 						//$category = new Category(array('id_category' => $article->prepareId_category(), 'id_section' => $section_id));
 						
-						$bannerRegions = BannerRegion::findRegions($id);
+						
 						
 						//$user = new User($article->prepareId_user());
 						$status = $banner->getStatus();
@@ -68,7 +68,7 @@ $pagination = $p->getPaginationLinks();
 						';
 						$image = Banner::getImage($id, 1);
 						if(!empty($image)) echo '
-							<td> <img width="200" height="80" src="../../uploads/banners/thumbs/' .  $image . '"/> </td>';
+							<td> <img width="200" height="80" src="../uploads/banner/thumbs/' .  $image . '"/> </td>';
 						else echo '<td> - </td>';
 						
 						echo '
@@ -78,14 +78,7 @@ $pagination = $p->getPaginationLinks();
 						
 						
 						
-						echo '<td>';
-						foreach($bannerRegions as $bannerRegion){
-							$regionId = $bannerRegion->prepareId_region();
-							try { $region = new Region($regionId); echo $region->prepareName() . "<br/>"; } catch(Exception $e) { echo "Sin regi&oacute;n <br/>";  }
-							
-						}
 						
-						echo '</td>';
 						
 						
 							echo	' <td> <center> ' . $banner->getOrder() . ' </center> </td>

@@ -147,7 +147,7 @@ require_once  INCLUDES.'header.php';
 						
 								
 						<?php
-							$resources = Resource::findForSection($id_banner, 1);
+							$resources = Resource::findForSection($id_banner, 2);
 							
 						?>
 						<tr>

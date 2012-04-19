@@ -52,8 +52,8 @@
 				
 				
 				
-				$dir = 'uploads/banners/';
-				$dir2 = 'uploads/banners/thumbs/';
+				$dir = 'uploads/banner/';
+				$dir2 = 'uploads/banner/thumbs/';
 				
 				$imageDescrip = fRequest::encode('imageDescrip');
 				
