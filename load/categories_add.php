@@ -1,6 +1,6 @@
 <?php
 $s = fRequest::encode('id_section','integer');
-if ($s != 4) {
+if ($s != 2) {
 $category = new Category();
  
 $parent_id = fRequest::encode('parent_id','integer');
@@ -21,7 +21,6 @@ try { $category->store(); } catch (Exception $e){
 } else {
 	$category = new EconomicUnitCategory();
 	$category->setEconomicUnitCategoryName(fRequest::encode('name','string'));
-	$category->setEconomicUnitCategoryOriginalId(0);
 	try { $category->store(); } catch (Exception $e){
 		die($e->getMessage());
 	}

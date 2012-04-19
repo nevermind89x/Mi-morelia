@@ -44,7 +44,7 @@ require_once  INCLUDES.'header.php';
 					
 						<?php
 							$sections = Section::findAll();
-							$list = array(2, 4);
+							$list = array(2);
 						?>
 						
 						<tr>

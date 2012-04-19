@@ -103,7 +103,7 @@
 					*/
 				 
 					try {
-						$statement = fORMDatabase::retrieve()->prepare("INSERT INTO resource (id_entity,id_section,token,url,resource_type,description) VALUES (%i, 4, '', %s, %s, %s)");
+						$statement = fORMDatabase::retrieve()->prepare("INSERT INTO resource (id_entity,id_section,token,url,resource_type,description) VALUES (%i, 2, '', %s, %s, %s)");
 						for ($i=0; $i < $uploaded; $i++) { 
 						  if($imageDescrip[$i] == "Si es necesario escribe la descripci&oacute;n del archivo") $imageDescrip[$i] = "";
 						fORMDatabase::retrieve()->query($statement, $lastId, $fileName[$i], Util::getResourceType($fileType[$i]), $imageDescrip[$i]); 

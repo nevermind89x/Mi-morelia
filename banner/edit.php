@@ -147,7 +147,7 @@ require_once  INCLUDES.'header.php';
 						
 								
 						<?php
-							$resources = Resource::findForSection($id_banner, 2);
+							$resources = Resource::findForSection($id_banner, 1);
 							
 						?>
 						<tr>
@@ -157,10 +157,10 @@ require_once  INCLUDES.'header.php';
 							foreach($resources as $resource) {
 								
 								if($resource->prepareResource_type()=='i') 
-									echo '<span class="resourcesSpan" id="' . $resource->prepareId_resource() . '"><a class="group1" href="../../uploads/banners/' . $resource->prepareUrl() . '"> Ver Imagen </a>';
+									echo '<span class="resourcesSpan" id="' . $resource->prepareId_resource() . '"><a class="group1" href="../uploads/banner/' . $resource->prepareUrl() . '"> Ver Imagen </a>';
 								else if($resource->prepareResource_type()=='e') echo '<span class="resourcesSpan" id="' . $resource->prepareId_resource() . '"><a target="_blank" href="' . $resource->prepareUrl() . '"> Ver Video </a>';
 								else 					
-									echo '<span class="resourcesSpan" id="' . $resource->prepareId_resource() . '"><a target="_blank" href="../../uploads/banners/' . $resource->prepareUrl() . '"> Ver Archivo </a>';
+									echo '<span class="resourcesSpan" id="' . $resource->prepareId_resource() . '"><a target="_blank" href="../uploads/banner/' . $resource->prepareUrl() . '"> Ver Archivo </a>';
 							
 
 echo'								- <a href="javascript:" class="delete" id="' . $resource->prepareId_resource() . '-' . $resource->prepareId_entity() . '-' . $resource->prepareId_section() . '"> Eliminar </a>  <br/></span>';

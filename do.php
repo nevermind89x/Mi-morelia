@@ -618,16 +618,30 @@ if (fRequest::isPost()) {
 				$id = explode("-",$id);
 				$section =""; 
 				$resource = new Resource(array('id_resource' => $id[0], 'id_entity'=> $id[1], 'id_section' => $id[2]));
-				
 				if ($resource->prepareResource_type() != 'e'){
 					switch($id[2]){
-						case 2: $section = "banners"; break;
+						case 1: $section = "banners"; break;
+						case 2: $section = "news"; break;
+						case 3: $section = "classified"; break;
+						case 4: $section = "events"; break;
+						case 5: $section = "polls"; break;
+						case 6: $section = "turism"; break;
+						case 7: $section = "plaza"; break;
+						//case 8: $section = "banners"; break;
+						case 9: $section = "real"; break;
+						case 12: $section = "authors"; break;
+						case 13: $section = "buencomer"; break;
+						case 14: $section = "autoplus"; break;
+						case 16: $section = "articleagency"; break;
+						case 17: $section = "turismb"; break;
+						case 18: $section = "profile"; break;
+						case 20: $section = "university"; break;
 					}
 				
-					$file1 = new fFile("uploads/$section/" .  $resource->prepareUrl());
+					$file1 = new fFile("../uploads/$section/" .  $resource->prepareUrl());
 					$file1->delete();
 					
-					$file1 = new fFile("uploads/$section/thumbs/" .  $resource->prepareUrl());
+					$file1 = new fFile("../uploads/$section/thumbs/" .  $resource->prepareUrl());
 					$file1->delete();
 				}
 				

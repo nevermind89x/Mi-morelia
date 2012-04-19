@@ -2,7 +2,6 @@
 $typeOfUser = (fAuthorization::checkAuthLevel('super'));
 $where = " WHERE ";
 
-
 $canEdit = fAuthorization::checkACL('banner', 'edit');
 $canDelete = fAuthorization::checkACL('banner', 'delete');
 
@@ -75,7 +74,6 @@ $pagination = $p->getPaginationLinks();
 								<td> ' . $banner->prepareLink() . ' </td>
 								<td> ' . BannerSection::findName($banner->prepareId_section()) . ' </td>
 						';
-						
 						
 						
 						

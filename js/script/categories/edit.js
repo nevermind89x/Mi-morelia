@@ -28,7 +28,7 @@
 
  
 				function showResponse(responseText, statusText, xhr, $form)  { 
-					//alert(responseText);
+				//	alert(responseText);
 					if(responseText!=1){
 						//$(".notification_msg").html(responseText).show("normal");
 						//$('html, body').animate({scrollTop:10},1000);

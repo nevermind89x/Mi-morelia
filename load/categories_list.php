@@ -5,7 +5,6 @@ $sub = 'list';
 
 $typeOfUser = (fAuthorization::checkAuthLevel('super'));
 $where = "";
-if (!$typeOfUser) $where = " WHERE " . fSession::get('where_at');
 ?>
 	
 <?php
@@ -15,9 +14,9 @@ $page = fRequest::encode('p','integer');
 if($page < 1) exit();
 $start = ($page - 1) * $limit;
 $categories = fRecordSet::buildFromSQL(
-	'Category',
-	"SELECT * FROM category $where LIMIT $start,$limit",
-	"SELECT count(*) FROM category $where",
+	'EconomicUnitCategory',
+	"SELECT * FROM economic_unit_categories $where LIMIT $start,$limit",
+	"SELECT count(*) FROM economic_unit_categories $where",
 	$limit, // $limit
 	$page  // $page
 );
@@ -45,7 +44,7 @@ $pagination = $p->getPaginationLinks();
 				foreach ($categories as $category) {
 					
 					
-					$id = $category->prepareId_category();
+					$id = $category->prepareEconomicUnitCategoryId();
 
 						
 						
@@ -54,12 +53,12 @@ $pagination = $p->getPaginationLinks();
 						';
 						
 						echo '
-								<td> ' . $category->prepareName() . ' </td>
+								<td> ' . $category->prepareEconomicUnitCategoryName() . ' </td>
 						';
 						
 						
 						
-						echo	'<td><center><a href="edit.php?id='.$id.'&s='.$category->prepareId_section().'"><img src="' . ICON . 'edit.png" /></a> </center></td>
+						echo	'<td><center><a href="edit.php?id='.$id.'&s=2"><img src="' . ICON . 'edit.png" /></a> </center></td>
 								<td><center><a id="'.$id.'" class="eliminar" href="javascript:deleteIt(' . $id . ')"><img src="' . ICON . 'delete.png" /> </a> </center> </td>
 							</tr>
 						';

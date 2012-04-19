@@ -24,7 +24,7 @@ $canDelete = true;
 
 $typeOfUser = (fAuthorization::checkAuthLevel('super'));
 $where = " WHERE ";
-//if (!$typeOfUser) $where = " WHERE " . fSession::get('where_at') . " AND ";
+if (!$typeOfUser) $where = " WHERE " . fSession::get('where_at') . " AND ";
 
 ?>
 <?php
@@ -41,8 +41,8 @@ $start = ($page - 1) * $limit;
 
 $av = fRecordSet::buildFromSQL(
 	'EconomicUnit',
-	"SELECT * FROM economic_units $where ( economic_unit_name LIKE '%$query%' OR economic_unit_street_type LIKE '%$query%' OR economic_unit_street_name LIKE '%$query%' OR economic_unit_phone LIKE '%$query%') LIMIT $start,$limit",
-	"SELECT count(*) FROM economic_units $where ( economic_unit_name LIKE '%$query%' OR economic_unit_street_type LIKE '%$query%' OR economic_unit_street_name LIKE '%$query%' OR economic_unit_phone LIKE '%$query%')",
+	"SELECT * FROM economic_units $where ( economic_unit_name LIKE '%$query%' OR economic_unit_street_type LIKE '%$query%' OR economic_unit_street_name LIKE '%$query%' OR economic_unit_phone LIKE '%$query%' OR economic_unit_region IN (SELECT id_region FROM region WHERE name LIKE '%$query%')) LIMIT $start,$limit",
+	"SELECT count(*) FROM economic_units $where ( economic_unit_name LIKE '%$query%' OR economic_unit_street_type LIKE '%$query%' OR economic_unit_street_name LIKE '%$query%' OR economic_unit_phone LIKE '%$query%' OR economic_unit_region IN (SELECT id_region FROM region WHERE name LIKE '%$query%'))",
 	$limit, // $limit
 	$page  // $page
 );
@@ -68,6 +68,7 @@ $pagination = $p->getPaginationLinks();
 		<th> Calle </th>
 		<th> N&uacute;mero </th>
 		<th> Tel&eacute;fono </th>
+		<th> Regi&oacute;n </th>
 		<th> Activo </th>
 		<th> Verificado </th>
 	<?php if($canEdit): ?> <th> Editar </th> <?php endif; ?>
@@ -88,10 +89,21 @@ $pagination = $p->getPaginationLinks();
 		echo '
 			<td> ' . substr($a->prepareEconomic_unit_description(),0,30) . ' </td>
 		';
-		echo '<td> ' . $a->prepareEconomic_unit_street_name() . ' </td>';		
-		echo '<td> ' . $a->prepareEconomic_unit_location_number	() . ' </td>';
+		echo '<td> ' . $a->prepareEconomic_unit_street_name() . ' </td>';
+echo '<td> ' . $a->prepareEconomic_unit_location_number	() . ' </td>';		
 		echo '<td> ' . $a->prepareEconomic_unit_phone() . ' </td>';		
-		
+		echo '<td>';	
+			$idRegion = $a->prepareEconomic_unit_region();
+			if (!empty($idRegion)):
+			try {
+				$region = new Region($idRegion);
+				echo $region->prepareName();
+			} catch(Exception $e){
+				echo "Sin regi&oacute;n";
+			}
+			endif;
+						
+		echo '</td>';
 		
 				$status = $a->getActive();
 		$status = ($status == true || $status == "Yes" || $status == 1) ? "Activo" : "Inactivo";

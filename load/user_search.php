@@ -6,7 +6,7 @@ $start = ($page - 1)*$limit;
 
 $typeOfUser = (fAuthorization::checkAuthLevel('super'));
 $where = " WHERE ";
-//if (!$typeOfUser) $where = " WHERE id_user IN (SELECT id_user FROM userregion WHERE " . fSession::get('where_at') . ") AND ";
+if (!$typeOfUser) $where = " WHERE id_user IN (SELECT id_user FROM userregion WHERE " . fSession::get('where_at') . ") AND ";
 
 $query = fRequest::encode('query','string');
 $users = fRecordSet::buildFromSQL(
@@ -39,15 +39,15 @@ $pagination = $p->getPaginationLinks();
 		<th>Nextel</th>
 		<th>Último Acceso</th>
 		<th>Fecha Registro</th>
-		<?php //if(fAuthorization::checkACL('user', 'edit')): ?><th>Editar</th><?php //endif ?>
-		<?php //if(fAuthorization::checkACL('user', 'delete')): ?><th>Eliminar</th><?php //endif ?>
+		<?php if(fAuthorization::checkACL('user', 'edit')): ?><th>Editar</th><?php endif ?>
+		<?php if(fAuthorization::checkACL('user', 'delete')): ?><th>Eliminar</th><?php endif ?>
 	</tr>
 	<?php
 	foreach($users as $item): ?>
 	<tr>
 		<td><input type="checkbox" class="check" /></td>
 		<td><?php echo $item->prepareEmail() ?></td>
-		<td><?php echo "Rol" ?></td>
+		<td><?php $rol = new Role($item->prepareIdRole()); echo $rol->prepareName(); ?></td>
 		<td><?php echo $item->prepareFirstName() ?></td>
 		<td><?php echo $item->prepareLastName() ?></td>
 		<td><?php if($item->getBirthday()) echo $item->getBirthday()->format('n/j/y') ?></td>
@@ -56,8 +56,8 @@ $pagination = $p->getPaginationLinks();
 		<td><?php echo $item->prepareNextel() ?></td>
 		<td><?php if($item->getUpdatedAt()) echo $item->getUpdatedAt()->format('n/j/y') ?></td>
 		<td><?php if($item->getCreatedAt()) echo $item->getCreatedAt()->format('n/j/y') ?></td>
-		<?php //if(fAuthorization::checkACL('user', 'edit')): ?><td><a href="<?php echo USER.'edit.php?id='.$item->getIdUser() ?>" title="edit" class="edit"><img src="<?php echo ICON?>edit.png" /></a></td><?php //endif ?>
-		<?php //if(fAuthorization::checkACL('user', 'delete')): ?><td><a href="" title="<?php echo $item->getIdUser(); ?>" class="delete"><img src="<?php echo ICON?>delete.png" /></a></td><?php //endif ?>
+		<?php if(fAuthorization::checkACL('user', 'edit')): ?><td><a href="<?php echo USER.'edit.php?id='.$item->getIdUser() ?>" title="edit" class="edit"><img src="<?php echo ICON?>edit.png" /></a></td><?php endif ?>
+		<?php if(fAuthorization::checkACL('user', 'delete')): ?><td><a href="" title="<?php echo $item->getIdUser(); ?>" class="delete"><img src="<?php echo ICON?>delete.png" /></a></td><?php endif ?>
 	</tr>
 	<?php endforeach ?>
 </table>

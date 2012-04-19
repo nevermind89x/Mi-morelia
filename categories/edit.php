@@ -11,16 +11,9 @@ endif;
 $id = fRequest::encode('id', 'integer');
 $s = fRequest::encode('s', 'integer');
 
-if(!fAuthorization::checkAuthLevel('super')) {
-				$isOwner = fRecordSet::build('Category', array('id_category=' => $id, 'id_region='=>fSession::get('regs')));
-				$count = $isOwner->count() > 0;
-			
-				if(!$count) 
-					header("Location: " . SITE);
-	}
 	
 	try {
-	$category = new Category(array("id_section"=> $s, "id_category"=>$id));
+		$category = new EconomicUnitCategory($id);
 	} catch(Exception $e){
 		header("Location: " . SITE);
 	}
@@ -52,11 +45,11 @@ require_once  INCLUDES.'header.php';
 					<input type="hidden" name="request_token" value="<?php echo fRequest::generateCSRFToken(SITE . "do.php") ?>" />
 					<input type="hidden" name="whatToDo" value="categories_edit" />
 					<input type="hidden" name="id" value="<?php echo $id ?>" />
-					<input type="hidden" name="s" value="<?php echo $s ?>" />
+					<input type="hidden" name="id_section" value="2" />
 					<table  class="contenttoc" style="float:left">
 					<?php
 					
-						$category = new Category(array("id_section"=> $s, "id_category"=>$id));
+						//$category = new Category(array("id_section"=> $s, "id_category"=>$id));
 					?>
 					<!--<tr>
 							<td> <label for="isSub"> Es subcategor&iacute;a (Cambiar Categor&iacute;a Padre) </label></td>
@@ -73,7 +66,7 @@ require_once  INCLUDES.'header.php';
 						
 						<tr>
 							<td> <label for="name"> Nombre(Sub/Categor&iacute;a) </label></td>
-							<td><input type="text" id="name" value="<?php echo $category->prepareName(); ?>" name="name" size="130"/></td>
+							<td><input type="text" id="name" value="<?php echo $category->prepareEconomicUnitCategoryName(); ?>" name="name" size="130"/></td>
 						</tr>	
 						
 						
