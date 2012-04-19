@@ -1,7 +1,7 @@
 <?php
 fSession::open();
 			$idUser = fSession::get(SESSION_ID_USER);
-			if(empty($idUser) || !fAuthorization::checkACL('news', 'delete')) {
+			if(empty($idUser) || !fAuthorization::checkACL('geolocation', 'delete')) {
 				header('Location: '.SITE);
 				exit("No se ha podido acceder a esta secci&oacite;n");
 			}
