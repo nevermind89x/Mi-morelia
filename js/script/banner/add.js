@@ -90,7 +90,7 @@
 
  
 				function showResponse(responseText, statusText, xhr, $form)  { 
-				alert(responseText);
+				//alert(responseText);
 					if(responseText!=1){
 						$(".errorBox").fadeIn();
 						$(".success").fadeOut();
