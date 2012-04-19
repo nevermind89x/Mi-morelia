@@ -31,7 +31,7 @@ require_once  INCLUDES.'header.php';
 				<div id="franchise">
 				</div>
 				<br style="clear:both;"/> &nbsp; &nbsp; <a href="javascript:deleteIt(0)">Eliminar los seleccionados</a>
-				<span style="float:right">Cantidad de encuestas por p&aacute;gina: <input  type="text" name="limit" id="limit" size="3" value="5" /></span>
+				<span style="float:right">Cantidad de observatorios por p&aacute;gina: <input  type="text" name="limit" id="limit" size="3" value="5" /></span>
 				</div>
 				
 			</div>

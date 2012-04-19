@@ -69,7 +69,7 @@ define('SESSION_REGIONS','regions');
 
 define('SALT','#^&(!)()');
 
-$db = new fDatabase('mysql', 'adminv2n', 'root', 'tortoise');
+$db = new fDatabase('mysql', 'adminv2n', 'root', 'Radamanthys');
 fORMDatabase::attach($db);
 fAuthorization::setLoginPage(SITE.'login.php');
 fAuthorization::setAuthLevels(

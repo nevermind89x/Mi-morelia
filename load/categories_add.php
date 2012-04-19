@@ -1,6 +1,6 @@
 <?php
 $s = fRequest::encode('id_section','integer');
-if ($s != 2) {
+if ($s != 4) {
 $category = new Category();
  
 $parent_id = fRequest::encode('parent_id','integer');

@@ -83,8 +83,6 @@
 				});
 				
 				function showRequest(formData, jqForm, options) { 
-					var count = $("#regions :selected").length;
-					if(count == 0) { $("#selectR").show(); return false; } else $("#selectR").hide();
 					$("#loader").fadeIn(1000);
 					
 					
@@ -92,7 +90,7 @@
 
  
 				function showResponse(responseText, statusText, xhr, $form)  { 
-				//alert(responseText);
+				alert(responseText);
 					if(responseText!=1){
 						$(".errorBox").fadeIn();
 						$(".success").fadeOut();

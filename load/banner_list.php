@@ -1,7 +1,7 @@
 <?php
 $typeOfUser = (fAuthorization::checkAuthLevel('super'));
 $where = "";
-if (!$typeOfUser) $where = " WHERE id_banner IN (SELECT id_banner FROM bannerregion WHERE " . fSession::get('where_at') . ")";
+//if (!$typeOfUser) $where = " WHERE id_banner IN (SELECT id_banner FROM bannerregion WHERE " . fSession::get('where_at') . ")";
 
 $canEdit = fAuthorization::checkACL('banner', 'edit');
 $canDelete = fAuthorization::checkACL('banner', 'delete');
@@ -47,7 +47,6 @@ $pagination = $p->getPaginationLinks();
 					<th> Imagen </th>
 					<th> Link </th>
 					<th> Secci&oacute;n  </th>
-					<th> Region </th>
 					<th> Orden </th>
 					<th> Estado </th>
 					<th> Fecha de publicaci&oacute;n </th>
@@ -63,9 +62,7 @@ $pagination = $p->getPaginationLinks();
 					$id = $banner->prepareId_banner();
 				
 						//$category = new Category(array('id_category' => $article->prepareId_category(), 'id_section' => $section_id));
-						try {
-						$bannerRegions = BannerRegion::findRegions($id);
-						} catch(Exception $e) { }
+
 						//$user = new User($article->prepareId_user());
 						$status = $banner->getStatus();
 						$status = ($status == true || $status == "Yes" || $status == 1) ? "Publicado" : "No publicado";
@@ -82,17 +79,6 @@ $pagination = $p->getPaginationLinks();
 								<td> ' . $banner->prepareLink() . ' </td>
 								<td> ' . BannerSection::findName($banner->prepareId_section()) . ' </td>
 						';
-						
-						
-						
-						echo '<td>';
-						foreach($bannerRegions as $bannerRegion){
-							$regionId = $bannerRegion->prepareId_region();
-							try { $region = new Region($regionId); echo $region->prepareName() . "<br/>"; } catch(Exception $e) { echo "Sin regi&oacute;n <br/>";  }
-							
-						}
-						
-						echo '</td>';
 						
 						
 						echo	' <td> <center> ' . $banner->getOrder() . ' </center> </td>
