@@ -16,6 +16,11 @@
 	$av->setEconomicUnitLocationNumber(fRequest::encode('number','string'));
 	$av->setEconomicUnitReserve(fRequest::encode('reserve','string'));
 	$av->setEconomicUnitPhone(fRequest::encode('phone','string'));
+		$av->setEconomicUnitCellphone(fRequest::encode('cellphone','string'));
+	$av->setEconomicUnitEmail(fRequest::encode('email','string'));
+	$av->setEconomicUnitCreditCard(fRequest::encode('credit_card','string'));
+	$av->setEconomicUnitFacebookPage(fRequest::encode('fb','string'));
+	$av->setEconomicUnitTwitter(fRequest::encode('tw','string'));
 	$av->setActive(fRequest::encode('status','integer'));
 	$av->setVerified(fRequest::encode('verified','integer'));
 	
@@ -88,13 +93,6 @@
 						$image3->cropToRatio(1, 1, 'left', 'bottom');
 						$image3->resize(200,0);
 						$image3->saveChanges();
-						/*
-				    $ftp = new ftp($user,$pass);
-					$ftp->upload($dir . "/" . $fileName[$i], 'DIR EN REMOTE');
-					# resize 
-					$ftp->upload($dir2 . "/" . $fileName[$i], 'DIR EN REMOTE');
-					$image->delete
-					*/
 					
 					}
 								

@@ -30,6 +30,11 @@ try {
 	$av->setEconomicUnitLocationNumber(fRequest::encode('number','string'));
 	$av->setEconomicUnitReserve(fRequest::encode('reserve','string'));
 	$av->setEconomicUnitPhone(fRequest::encode('phone','string'));
+		$av->setEconomicUnitCellphone(fRequest::encode('cellphone','string'));
+	$av->setEconomicUnitEmail(fRequest::encode('email','string'));
+	$av->setEconomicUnitCreditCard(fRequest::encode('credit_card','string'));
+	$av->setEconomicUnitFacebookPage(fRequest::encode('fb','string'));
+	$av->setEconomicUnitTwitter(fRequest::encode('tw','string'));
 	$av->setActive(fRequest::encode('status','integer'));
 	$av->setVerified(fRequest::encode('verified','integer'));
 	

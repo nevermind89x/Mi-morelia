@@ -201,7 +201,30 @@ require_once INCLUDES.'header.php';
 								<td> <input type="text" size="80" name="phone" id="phone" /> </td>
 							</tr>
 							
-								
+							<tr>
+								<td> <label for="type"> Celular: </label> </td>
+								<td> <input type="text" size="80" name="cellphone" id="cellphone" /> </td>
+							</tr>
+							
+							<tr>
+								<td> <label for="type"> Correo Electr&oacute;nico: </label> </td>
+								<td> <input type="text" size="80" name="email" id="email" /> </td>
+							</tr>
+							
+							<tr>
+								<td> <label for="type"> Tarjeta de Cr&eacute;dito: </label> </td>
+								<td> <input type="text" size="80" name="credit_card" id="credit_card" /> </td>
+							</tr>
+							
+							<tr>
+								<td> <label for="type"> P&aacute;gina de Facebook: </label> </td>
+								<td> <input type="text" size="80" name="fb" id="fb" /> </td>
+							</tr>
+							
+							<tr>
+								<td> <label for="type"> P&aacute;gina de Twitter: </label> </td>
+								<td> <input type="text" size="80" name="tw" id="tw" /> </td>
+							</tr>	
 									
 							
 				<tr id="videos">
@@ -233,7 +256,12 @@ require_once INCLUDES.'header.php';
 								</select>
 							</td>
 						</tr>
-						
+						<tr>
+							<td> <label for="logo"> Logo <label> </td> 
+							<td>
+								<input type="file" name="logo" style="width:200px" /> 
+							</td>
+						</tr>
 							
 							<tr>
 						

@@ -204,6 +204,31 @@ require_once INCLUDES.'header.php';
 								<td> <input type="text" size="80" name="phone" id="phone" value="<?php echo $e->prepareEconomicUnitPhone() ?>" /> </td>
 							</tr>
 							
+							<tr>
+								<td> <label for="type"> Celular: </label> </td>
+								<td> <input type="text" size="80" name="cellphone" id="cellphone" value="<?php echo $e->prepareEconomicUnitCellphone() ?>" /> </td>
+							</tr>
+							
+							<tr>
+								<td> <label for="type"> Correo Electr&oacute;nico: </label> </td>
+								<td> <input type="text" size="80" name="email" id="email" value="<?php echo $e->prepareEconomicUnitEmail() ?>" /> </td>
+							</tr>
+							
+							<tr>
+								<td> <label for="type"> Tarjeta de Cr&eacute;dito: </label> </td>
+								<td> <input type="text" size="80" name="credit_card" id="credit_card" value="<?php echo $e->prepareEconomicUnitCreditCard() ?>" /> </td>
+							</tr>
+							
+							<tr>
+								<td> <label for="type"> P&aacute;gina de Facebook: </label> </td>
+								<td> <input type="text" size="80" name="fb" id="fb"  value="<?php echo $e->prepareEconomicUnitFacebookPage() ?>" /> </td>
+							</tr>
+							
+							<tr>
+								<td> <label for="type"> P&aacute;gina de Twitter: </label> </td>
+								<td> <input type="text" size="80" name="tw" id="tw" value="<?php echo $e->prepareEconomicUnitTwitter() ?>" /> </td>
+							</tr>
+							
 								
 									
 				
