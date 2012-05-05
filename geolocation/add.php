@@ -38,7 +38,7 @@ require_once INCLUDES.'header.php';
 					$('.multid').MultiFile({
 						max: 20,
 						STRING: {
-							file: SITE + '$file <br/> <input type="text" title="Si es necesario escribe la descripci&oacute;n del archivo" value="Si es necesario escribe la descripci&oacute;n del archivo" class="text" size="80" name="imageDescrip[]"/>',
+							file: '$file <input type="text" title="Si es necesario escribe el nombre del producto" value="Si es necesario escribe el nombre del producto" class="text" size="80" name="productname[]"/><br/><input type="text" title="Si es necesario escribe la descripci&oacute;n del producto" value="Si es necesario escribe la descripci&oacute;n del producto" class="text" size="80" name="descrip[]"/> <br/> <input type="text" name="price[]" size="10" value="Precio ($)" class="text" title="Precio ($)"/><br/><br/>',
 						}
 					});
 					
@@ -291,6 +291,19 @@ require_once INCLUDES.'header.php';
 									</select>
 								</td>
 							</tr>
+							<tr>
+							<td style="padding-left:100px;">
+							<input type="radio" name="typeps" value="1" /> Producto &nbsp;<input type="radio" name="typeps" value="0"/> Servicio
+							</td>
+							</tr>
+						</table>
+						
+						<table class="contenttoc" style="float:left; margin-left:35px;">
+							
+							<tr><td>
+								<td><label for="images">Productos</label></td>
+								<td><input type="file" class="multid" name="files[]"/></td>
+							</td></tr>
 						</table>
 					</form>
 				</div>

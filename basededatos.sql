@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tiempo de generación: 19-04-2012 a las 18:19:08
+-- Tiempo de generación: 05-05-2012 a las 12:54:33
 -- Versión del servidor: 5.0.51
 -- Versión de PHP: 5.2.6
 
@@ -107,6 +107,26 @@ INSERT INTO `economic_unit_categories` VALUES (3, 'nueva cat geoo');
 -- --------------------------------------------------------
 
 -- 
+-- Estructura de tabla para la tabla `economic_unit_product`
+-- 
+
+CREATE TABLE `economic_unit_product` (
+  `economic_unit_product_id` int(10) unsigned NOT NULL auto_increment,
+  `economic_unit_id` int(10) unsigned NOT NULL,
+  `name` varchar(150) default NULL,
+  `price` double default NULL,
+  `description` text,
+  PRIMARY KEY  (`economic_unit_product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- 
+-- Volcar la base de datos para la tabla `economic_unit_product`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
 -- Estructura de tabla para la tabla `economic_units`
 -- 
 
@@ -121,6 +141,12 @@ CREATE TABLE `economic_units` (
   `economic_unit_location_number` varchar(45) default NULL,
   `economic_unit_reserve` varchar(100) default NULL,
   `economic_unit_phone` varchar(45) default NULL,
+  `economic_unit_cellphone` varchar(256) default NULL,
+  `economic_unit_email` varchar(256) default NULL,
+  `economic_unit_credit_card` varchar(256) default NULL,
+  `economic_unit_facebook_page` varchar(256) default NULL,
+  `economic_unit_twitter` varchar(256) default NULL,
+  `economic_unit_logo` varchar(256) default NULL,
   `active` tinyint(2) unsigned NOT NULL,
   `verified` tinyint(2) unsigned NOT NULL,
   PRIMARY KEY  (`economic_unit_id`)
@@ -130,9 +156,9 @@ CREATE TABLE `economic_units` (
 -- Volcar la base de datos para la tabla `economic_units`
 -- 
 
-INSERT INTO `economic_units` VALUES (1, 'Geolocalizacion', 'Tipo', '19.70892642187905', '-101.20772905783343', 'descip', 'calle', '123', 'asentamiento', '123123', 1, 1);
-INSERT INTO `economic_units` VALUES (2, 'nombre', 'tipo2', '19.6941074446', '-101.194825844', 'descrip 2', 'calle 2', 'numero 2', 'asentamiento 2', 'telefono 2', 1, 1);
-INSERT INTO `economic_units` VALUES (3, 'nombre', 'tipo2', '19.6941074445611', '-101.194825843925', 'descrip 2', 'calle 2', 'numero 2', 'asentamiento 2', 'telefono 2', 1, 1);
+INSERT INTO `economic_units` VALUES (1, 'Geolocalizacion', 'Tipo', '19.708381003693315', '-101.21639795736957', 'descip', 'calle', '123', 'asentamiento', '123123', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (2, 'nombre', 'tipo2', '19.6941074446', '-101.194825844', 'descrip 2', 'calle 2', 'numero 2', 'asentamiento 2', 'telefono 2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (3, 'nombre', 'tipo2', '19.6941074445611', '-101.194825843925', 'descrip 2', 'calle 2', 'numero 2', 'asentamiento 2', 'telefono 2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -151,6 +177,7 @@ CREATE TABLE `economic_units_has_economic_unit_categories` (
 -- 
 
 INSERT INTO `economic_units_has_economic_unit_categories` VALUES (1, 1);
+INSERT INTO `economic_units_has_economic_unit_categories` VALUES (1, 2);
 
 -- --------------------------------------------------------
 
@@ -168,7 +195,7 @@ CREATE TABLE `log` (
   `type` varchar(30) NOT NULL,
   `tabla` varchar(50) NOT NULL,
   PRIMARY KEY  (`id_log`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=69 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
 
 -- 
 -- Volcar la base de datos para la tabla `log`
@@ -242,6 +269,12 @@ INSERT INTO `log` VALUES (65, 'economic_unit_category_id => 1, economic_unit_cat
 INSERT INTO `log` VALUES (66, 'economic_unit_category_id => 1, economic_unit_category_name => asd, ', '2012-04-19 07:04:59', 'http://localhost/adminv3/categories/edit.php?id=1&s=2', '127.0.0.1', 13, 'UPDATE', 'EconomicUnitCategory');
 INSERT INTO `log` VALUES (67, 'economic_unit_category_id => 1, economic_unit_category_name => Test asd, ', '2012-04-19 07:04:22', 'http://localhost/adminv3/categories/edit.php?id=1&s=2', '127.0.0.1', 13, 'UPDATE', 'EconomicUnitCategory');
 INSERT INTO `log` VALUES (68, 'id_banner => 5, id_section => 1, id_zone => 2, link => enlacneackslandlasdccom, order => 1, updated_at => 2012-04-19 19:14:57, created_at => 2012-04-19 19:14:57, status => 1, ', '2012-04-19 07:04:57', 'http://localhost/adminv3/banner/add.php', '127.0.0.1', 13, 'INSERT', 'Banner');
+INSERT INTO `log` VALUES (69, 'economic_unit_id => 1, economic_unit_name => Geolocalizacion, economic_unit_street_type => Tipo, economic_unit_latitude => 19.70892642187905, economic_unit_longitude => -101.20772905783343, economic_unit_description => descip, economic_unit_street_name => calle, economic_unit_location_number => 123, economic_unit_reserve => asentamiento, economic_unit_phone => 123123, active => 1, verified => 1, ', '2012-04-19 07:04:51', 'http://localhost/adminv3/geolocation/edit.php?id=1', '127.0.0.1', 13, 'UPDATE', 'EconomicUnit');
+INSERT INTO `log` VALUES (70, 'economic_units_economic_unit_id => 1, economic_unit_categories_economic_unit_category_id => 1, ', '2012-04-19 07:04:51', 'http://localhost/adminv3/geolocation/edit.php?id=1', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (71, 'economic_units_economic_unit_id => 1, economic_unit_categories_economic_unit_category_id => 2, ', '2012-04-19 07:04:51', 'http://localhost/adminv3/geolocation/edit.php?id=1', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (72, 'economic_unit_id => 1, economic_unit_name => Geolocalizacion, economic_unit_street_type => Tipo, economic_unit_latitude => 19.708381003693315, economic_unit_longitude => -101.21639795736957, economic_unit_description => descip, economic_unit_street_name => calle, economic_unit_location_number => 123, economic_unit_reserve => asentamiento, economic_unit_phone => 123123, active => 1, verified => 1, ', '2012-04-19 07:04:02', 'http://localhost/adminv3/geolocation/edit.php?id=1', '127.0.0.1', 13, 'UPDATE', 'EconomicUnit');
+INSERT INTO `log` VALUES (73, 'economic_units_economic_unit_id => 1, economic_unit_categories_economic_unit_category_id => 1, ', '2012-04-19 07:04:02', 'http://localhost/adminv3/geolocation/edit.php?id=1', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (74, 'economic_units_economic_unit_id => 1, economic_unit_categories_economic_unit_category_id => 2, ', '2012-04-19 07:04:02', 'http://localhost/adminv3/geolocation/edit.php?id=1', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
 
 -- --------------------------------------------------------
 
