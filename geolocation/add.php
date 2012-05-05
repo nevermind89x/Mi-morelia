@@ -34,8 +34,13 @@ require_once INCLUDES.'header.php';
 				$("#addVideo").live("click",function(){
 						$('<tr><td><label for="video"> Video </label></td><td><input type="text" name="video[]" size="80"/><br/><input type="text" class="text" size="80" name="descrip2[]" title="Si es necesario escribe la descripci&oacute;n del video" value="Si es necesario escribe la descripci&oacute;n del video"/></td></tr> ').insertAfter($("#videos"));
 					});
-					
 					$('.multid').MultiFile({
+						max: 20,
+						STRING: {
+							file: '$file <input type="text" title="Si es necesario escribe la descripci&oacute;n del archivo" value="Si es necesario escribe la descripci&oacute;n del archivo" class="text" size="80" name="descrip[]"/> ',
+						}
+					});
+					$('.multid2').MultiFile({
 						max: 20,
 						STRING: {
 							file: '$file <input type="text" title="Si es necesario escribe el nombre del producto" value="Si es necesario escribe el nombre del producto" class="text" size="80" name="productname[]"/><br/><input type="text" title="Si es necesario escribe la descripci&oacute;n del producto" value="Si es necesario escribe la descripci&oacute;n del producto" class="text" size="80" name="descrip[]"/> <br/> <input type="text" name="price[]" size="10" value="Precio ($)" class="text" title="Precio ($)"/><br/><br/>',
@@ -302,7 +307,7 @@ require_once INCLUDES.'header.php';
 							
 							<tr><td>
 								<td><label for="images">Productos</label></td>
-								<td><input type="file" class="multid" name="files[]"/></td>
+								<td><input type="file" class="multid2" name="files2[]"/></td>
 							</td></tr>
 						</table>
 					</form>
