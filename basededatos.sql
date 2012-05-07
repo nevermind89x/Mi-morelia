@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tiempo de generación: 05-05-2012 a las 12:54:33
+-- Tiempo de generación: 07-05-2012 a las 13:51:29
 -- Versión del servidor: 5.0.51
 -- Versión de PHP: 5.2.6
 
@@ -116,11 +116,41 @@ CREATE TABLE `economic_unit_product` (
   `name` varchar(150) default NULL,
   `price` double default NULL,
   `description` text,
+  `image` varchar(255) default NULL,
   PRIMARY KEY  (`economic_unit_product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 -- 
 -- Volcar la base de datos para la tabla `economic_unit_product`
+-- 
+
+INSERT INTO `economic_unit_product` VALUES (1, 6, 'abuelos', 1200.56, 'los abuelos del pakillo', NULL);
+INSERT INTO `economic_unit_product` VALUES (2, 7, 'abuelos', 1200.56, 'los abuelos del pakillo', NULL);
+INSERT INTO `economic_unit_product` VALUES (3, 8, 'abuelos', 1200.56, 'los abuelos del pakillo', NULL);
+INSERT INTO `economic_unit_product` VALUES (4, 9, 'abuelos2', 31200.56, 'los abuelos del pakillo2', NULL);
+INSERT INTO `economic_unit_product` VALUES (5, 9, 'tarahmunara', 1123, 'tareas', NULL);
+INSERT INTO `economic_unit_product` VALUES (6, 10, 'abuelos2', 31200.56, 'los abuelos del pakillo2', 'bisabuelos_jpg.jpg');
+INSERT INTO `economic_unit_product` VALUES (7, 10, 'tarahmunara', 1123, 'tareas', 'tarahumaras1_jpg.jpg');
+INSERT INTO `economic_unit_product` VALUES (8, 11, 'abuelos2', 31200.56, 'los abuelos del pakillo2', 'bisabuelos_jpg.jpg');
+INSERT INTO `economic_unit_product` VALUES (9, 11, 'tarahmunara', 1123, 'tareas', 'tarahumaras1_jpg.jpg');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `economic_unit_service`
+-- 
+
+CREATE TABLE `economic_unit_service` (
+  `economic_unit_sevice_id` int(11) unsigned NOT NULL,
+  `economic_unit_id` int(11) unsigned NOT NULL,
+  `description` text,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`economic_unit_sevice_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Volcar la base de datos para la tabla `economic_unit_service`
 -- 
 
 
@@ -150,7 +180,7 @@ CREATE TABLE `economic_units` (
   `active` tinyint(2) unsigned NOT NULL,
   `verified` tinyint(2) unsigned NOT NULL,
   PRIMARY KEY  (`economic_unit_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 -- 
 -- Volcar la base de datos para la tabla `economic_units`
@@ -159,6 +189,14 @@ CREATE TABLE `economic_units` (
 INSERT INTO `economic_units` VALUES (1, 'Geolocalizacion', 'Tipo', '19.708381003693315', '-101.21639795736957', 'descip', 'calle', '123', 'asentamiento', '123123', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
 INSERT INTO `economic_units` VALUES (2, 'nombre', 'tipo2', '19.6941074446', '-101.194825844', 'descrip 2', 'calle 2', 'numero 2', 'asentamiento 2', 'telefono 2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
 INSERT INTO `economic_units` VALUES (3, 'nombre', 'tipo2', '19.6941074445611', '-101.194825843925', 'descrip 2', 'calle 2', 'numero 2', 'asentamiento 2', 'telefono 2', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (4, NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (5, NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (6, NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (7, NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (8, NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (9, NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (10, NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+INSERT INTO `economic_units` VALUES (11, NULL, NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -178,6 +216,13 @@ CREATE TABLE `economic_units_has_economic_unit_categories` (
 
 INSERT INTO `economic_units_has_economic_unit_categories` VALUES (1, 1);
 INSERT INTO `economic_units_has_economic_unit_categories` VALUES (1, 2);
+INSERT INTO `economic_units_has_economic_unit_categories` VALUES (5, 2);
+INSERT INTO `economic_units_has_economic_unit_categories` VALUES (6, 2);
+INSERT INTO `economic_units_has_economic_unit_categories` VALUES (7, 2);
+INSERT INTO `economic_units_has_economic_unit_categories` VALUES (8, 2);
+INSERT INTO `economic_units_has_economic_unit_categories` VALUES (9, 2);
+INSERT INTO `economic_units_has_economic_unit_categories` VALUES (10, 2);
+INSERT INTO `economic_units_has_economic_unit_categories` VALUES (11, 2);
 
 -- --------------------------------------------------------
 
@@ -195,7 +240,7 @@ CREATE TABLE `log` (
   `type` varchar(30) NOT NULL,
   `tabla` varchar(50) NOT NULL,
   PRIMARY KEY  (`id_log`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=99 ;
 
 -- 
 -- Volcar la base de datos para la tabla `log`
@@ -275,6 +320,30 @@ INSERT INTO `log` VALUES (71, 'economic_units_economic_unit_id => 1, economic_un
 INSERT INTO `log` VALUES (72, 'economic_unit_id => 1, economic_unit_name => Geolocalizacion, economic_unit_street_type => Tipo, economic_unit_latitude => 19.708381003693315, economic_unit_longitude => -101.21639795736957, economic_unit_description => descip, economic_unit_street_name => calle, economic_unit_location_number => 123, economic_unit_reserve => asentamiento, economic_unit_phone => 123123, active => 1, verified => 1, ', '2012-04-19 07:04:02', 'http://localhost/adminv3/geolocation/edit.php?id=1', '127.0.0.1', 13, 'UPDATE', 'EconomicUnit');
 INSERT INTO `log` VALUES (73, 'economic_units_economic_unit_id => 1, economic_unit_categories_economic_unit_category_id => 1, ', '2012-04-19 07:04:02', 'http://localhost/adminv3/geolocation/edit.php?id=1', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
 INSERT INTO `log` VALUES (74, 'economic_units_economic_unit_id => 1, economic_unit_categories_economic_unit_category_id => 2, ', '2012-04-19 07:04:02', 'http://localhost/adminv3/geolocation/edit.php?id=1', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (75, 'economic_unit_id => 4, economic_unit_name => , economic_unit_street_type => , economic_unit_latitude => 0, economic_unit_longitude => 0, economic_unit_description => , economic_unit_street_name => , economic_unit_location_number => , economic_unit_reserve => , economic_unit_phone => , economic_unit_cellphone => , economic_unit_email => , economic_unit_credit_card => , economic_unit_facebook_page => , economic_unit_twitter => , economic_unit_logo => , active => 1, verified => 1, ', '2012-05-05 02:05:49', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnit');
+INSERT INTO `log` VALUES (76, 'economic_unit_id => 5, economic_unit_name => , economic_unit_street_type => , economic_unit_latitude => 0, economic_unit_longitude => 0, economic_unit_description => , economic_unit_street_name => , economic_unit_location_number => , economic_unit_reserve => , economic_unit_phone => , economic_unit_cellphone => , economic_unit_email => , economic_unit_credit_card => , economic_unit_facebook_page => , economic_unit_twitter => , economic_unit_logo => , active => 1, verified => 1, ', '2012-05-07 01:05:32', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnit');
+INSERT INTO `log` VALUES (77, 'economic_units_economic_unit_id => 5, economic_unit_categories_economic_unit_category_id => 2, ', '2012-05-07 01:05:32', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (78, 'economic_unit_id => 6, economic_unit_name => , economic_unit_street_type => , economic_unit_latitude => 0, economic_unit_longitude => 0, economic_unit_description => , economic_unit_street_name => , economic_unit_location_number => , economic_unit_reserve => , economic_unit_phone => , economic_unit_cellphone => , economic_unit_email => , economic_unit_credit_card => , economic_unit_facebook_page => , economic_unit_twitter => , economic_unit_logo => , active => 1, verified => 1, ', '2012-05-07 01:05:20', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnit');
+INSERT INTO `log` VALUES (79, 'economic_units_economic_unit_id => 6, economic_unit_categories_economic_unit_category_id => 2, ', '2012-05-07 01:05:20', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (80, 'economic_unit_product_id => 1, economic_unit_id => 6, name => abuelos, price => 1200.56, description => los abuelos del pakillo, ', '2012-05-07 01:05:20', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitProduct');
+INSERT INTO `log` VALUES (81, 'economic_unit_id => 7, economic_unit_name => , economic_unit_street_type => , economic_unit_latitude => 0, economic_unit_longitude => 0, economic_unit_description => , economic_unit_street_name => , economic_unit_location_number => , economic_unit_reserve => , economic_unit_phone => , economic_unit_cellphone => , economic_unit_email => , economic_unit_credit_card => , economic_unit_facebook_page => , economic_unit_twitter => , economic_unit_logo => , active => 1, verified => 1, ', '2012-05-07 01:05:44', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnit');
+INSERT INTO `log` VALUES (82, 'economic_units_economic_unit_id => 7, economic_unit_categories_economic_unit_category_id => 2, ', '2012-05-07 01:05:44', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (83, 'economic_unit_product_id => 2, economic_unit_id => 7, name => abuelos, price => 1200.56, description => los abuelos del pakillo, ', '2012-05-07 01:05:44', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitProduct');
+INSERT INTO `log` VALUES (84, 'economic_unit_id => 8, economic_unit_name => , economic_unit_street_type => , economic_unit_latitude => 0, economic_unit_longitude => 0, economic_unit_description => , economic_unit_street_name => , economic_unit_location_number => , economic_unit_reserve => , economic_unit_phone => , economic_unit_cellphone => , economic_unit_email => , economic_unit_credit_card => , economic_unit_facebook_page => , economic_unit_twitter => , economic_unit_logo => , active => 1, verified => 1, ', '2012-05-07 01:05:15', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnit');
+INSERT INTO `log` VALUES (85, 'economic_units_economic_unit_id => 8, economic_unit_categories_economic_unit_category_id => 2, ', '2012-05-07 01:05:15', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (86, 'economic_unit_product_id => 3, economic_unit_id => 8, name => abuelos, price => 1200.56, description => los abuelos del pakillo, ', '2012-05-07 01:05:16', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitProduct');
+INSERT INTO `log` VALUES (87, 'economic_unit_id => 9, economic_unit_name => , economic_unit_street_type => , economic_unit_latitude => 0, economic_unit_longitude => 0, economic_unit_description => , economic_unit_street_name => , economic_unit_location_number => , economic_unit_reserve => , economic_unit_phone => , economic_unit_cellphone => , economic_unit_email => , economic_unit_credit_card => , economic_unit_facebook_page => , economic_unit_twitter => , economic_unit_logo => , active => 1, verified => 1, ', '2012-05-07 01:05:10', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnit');
+INSERT INTO `log` VALUES (88, 'economic_units_economic_unit_id => 9, economic_unit_categories_economic_unit_category_id => 2, ', '2012-05-07 01:05:10', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (89, 'economic_unit_product_id => 4, economic_unit_id => 9, name => abuelos2, price => 31200.56, description => los abuelos del pakillo2, ', '2012-05-07 01:05:10', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitProduct');
+INSERT INTO `log` VALUES (90, 'economic_unit_product_id => 5, economic_unit_id => 9, name => tarahmunara, price => 1123, description => tareas, ', '2012-05-07 01:05:10', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitProduct');
+INSERT INTO `log` VALUES (91, 'economic_unit_id => 10, economic_unit_name => , economic_unit_street_type => , economic_unit_latitude => 0, economic_unit_longitude => 0, economic_unit_description => , economic_unit_street_name => , economic_unit_location_number => , economic_unit_reserve => , economic_unit_phone => , economic_unit_cellphone => , economic_unit_email => , economic_unit_credit_card => , economic_unit_facebook_page => , economic_unit_twitter => , economic_unit_logo => , active => 1, verified => 1, ', '2012-05-07 01:05:35', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnit');
+INSERT INTO `log` VALUES (92, 'economic_units_economic_unit_id => 10, economic_unit_categories_economic_unit_category_id => 2, ', '2012-05-07 01:05:35', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (93, 'economic_unit_product_id => 6, economic_unit_id => 10, name => abuelos2, price => 31200.56, description => los abuelos del pakillo2, image => bisabuelos_jpg.jpg, ', '2012-05-07 01:05:35', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitProduct');
+INSERT INTO `log` VALUES (94, 'economic_unit_product_id => 7, economic_unit_id => 10, name => tarahmunara, price => 1123, description => tareas, image => tarahumaras1_jpg.jpg, ', '2012-05-07 01:05:35', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitProduct');
+INSERT INTO `log` VALUES (95, 'economic_unit_id => 11, economic_unit_name => , economic_unit_street_type => , economic_unit_latitude => 0, economic_unit_longitude => 0, economic_unit_description => , economic_unit_street_name => , economic_unit_location_number => , economic_unit_reserve => , economic_unit_phone => , economic_unit_cellphone => , economic_unit_email => , economic_unit_credit_card => , economic_unit_facebook_page => , economic_unit_twitter => , economic_unit_logo => , active => 1, verified => 1, ', '2012-05-07 01:05:24', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnit');
+INSERT INTO `log` VALUES (96, 'economic_units_economic_unit_id => 11, economic_unit_categories_economic_unit_category_id => 2, ', '2012-05-07 01:05:24', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitHasCategory');
+INSERT INTO `log` VALUES (97, 'economic_unit_product_id => 8, economic_unit_id => 11, name => abuelos2, price => 31200.56, description => los abuelos del pakillo2, image => bisabuelos_jpg.jpg, ', '2012-05-07 01:05:24', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitProduct');
+INSERT INTO `log` VALUES (98, 'economic_unit_product_id => 9, economic_unit_id => 11, name => tarahmunara, price => 1123, description => tareas, image => tarahumaras1_jpg.jpg, ', '2012-05-07 01:05:25', 'http://localhost/adminv3/geolocation/add.php', '127.0.0.1', 13, 'INSERT', 'EconomicUnitProduct');
 
 -- --------------------------------------------------------
 

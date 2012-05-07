@@ -43,7 +43,7 @@ require_once INCLUDES.'header.php';
 					$('.multid2').MultiFile({
 						max: 20,
 						STRING: {
-							file: '$file <input type="text" title="Si es necesario escribe el nombre del producto" value="Si es necesario escribe el nombre del producto" class="text" size="80" name="productname[]"/><br/><input type="text" title="Si es necesario escribe la descripci&oacute;n del producto" value="Si es necesario escribe la descripci&oacute;n del producto" class="text" size="80" name="descrip[]"/> <br/> <input type="text" name="price[]" size="10" value="Precio ($)" class="text" title="Precio ($)"/><br/><br/>',
+							file: '$file <input type="text" title="Si es necesario escribe el nombre del producto" value="Si es necesario escribe el nombre del producto" class="text" size="80" name="productname[]"/><br/><input type="text" title="Si es necesario escribe la descripci&oacute;n del producto" value="Si es necesario escribe la descripci&oacute;n del producto" class="text" size="80" name="descripp[]"/> <br/> <input type="text" name="price[]" size="10" value="Precio ($)" class="text" title="Precio ($)"/><br/><br/>',
 						}
 					});
 					

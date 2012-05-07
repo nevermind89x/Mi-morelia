@@ -33,6 +33,7 @@ fORM::mapClassToTable('Region', 'region');
 fORM::mapClassToTable('Resource','resource');
 fORM::mapClassToTable('EconomicUnitCategory','economic_unit_categories');
 fORM::mapClassToTable('EconomicUnit','economic_units');
+fORM::mapClassToTable('EconomicUnitProduct','economic_unit_product');
 fORM::mapClassToTable('EconomicUnitHasCategory','economic_units_has_economic_unit_categories');
 fORM::mapClassToTable('User',TBL_USER);
 fORM::mapClassToTable('Role',TBL_ROLE);

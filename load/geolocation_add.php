@@ -1,5 +1,6 @@
 <?php
 		fSession::open();
+		ini_set("memory_limit","20M");
 			$idUser = fSession::get(SESSION_ID_USER);
 			if(empty($idUser) || !fAuthorization::checkACL('geolocation', 'add')) {
 				header('Location: '.SITE);
@@ -25,11 +26,11 @@
 	$av->setVerified(fRequest::encode('verified','integer'));
 	
 	try { $av->store(); 	
-		$lastId = fORMDatabase::retrieve()->getLastId(); 
+		$lastId = $av->getEconomicUnitId(); 
 	} catch (Exception $e){
 		exit ("Ha ocurrido un error." .$e->getMessage());
 	}
-				
+	
 	$id_cat = fRequest::encode('cat', 'array');
 	$total_cat = count($id_cat);
 	
@@ -64,7 +65,7 @@
 	/*
 				 * Add Files to Server
 				 */
-				if (!empty($_FILES)) {
+				if (!empty($_FILES['files2']['name'][0])) {
 				$uploader = new fUpload();
 				$uploader->setOptional();
 				$uploader->setMIMETypes(
@@ -73,15 +74,49 @@
 				);
 				
 				
-				
-				
 				$dir = 'uploads/geolocation/';
 				$dir2 = 'uploads/geolocation/thumbs/';
 				
-				$imageDescrip = fRequest::encode('imageDescrip');
+				$imageDescrip = fRequest::encode('imageDescrip');		
 				
+					try {
+	
+						$uploaded2 = fUpload::count('files2');
+							$productname = fRequest::encode('productname');
+							$productdescrip = fRequest::encode('descripp');
+							$productprice = fRequest::encode('price');
+							
+						for ($i=0; $i < $uploaded2; $i++) {
+						
+						
+						$ext = strtolower(pathinfo($_FILES['files2']['name'][$i], PATHINFO_EXTENSION));
+						$_FILES['files2']['name'][$i] = fURL::makeFriendly(str_replace(' ','-',$_FILES['files2']['name'][$i])).".$ext";
+						$uploader->move($dir, 'files2', $i);
+						$fileName[] = $_FILES['files2']['name'][$i];
+						$fileType[] = $_FILES['files2']['type'][$i];
+							$ap = new EconomicUnitProduct();
+							$ap->setEconomicUnitId($lastId);
+							
+							$ap->setName($productname[$i]);
+							$ap->setPrice($productprice[$i]);
+							$ap->setDescription($productdescrip[$i]);
+							$ap->setImage($fileName[$i]);
+							$ap->store();
+							
+
+							copy($dir . $fileName[$i],$dir2 . $fileName[$i]);
+							$image3 = new fImage($dir2 . $fileName[$i]);
+							$image3->cropToRatio(1, 1, 'left', 'bottom');
+							$image3->resize(200,0);
+							$image3->saveChanges();
+						
+						}	
+					} catch (Exception $e){
+						exit ("Ha ocurrido un error." .$e->getMessage());
+					}
+					}
 				
-				
+				if (!empty($_FILES['files']['name'][0])) {
 				$uploaded = fUpload::count('files');
 				for ($i=0; $i < $uploaded; $i++) {
 						$ext = strtolower(pathinfo($_FILES['files']['name'][$i], PATHINFO_EXTENSION));
@@ -90,12 +125,13 @@
 						$fileName[] = $_FILES['files']['name'][$i];
 						$fileType[] = $_FILES['files']['type'][$i];
 						
+						
 						copy($dir . $fileName[$i],$dir2 . $fileName[$i]);
 						$image3 = new fImage($dir2 . $fileName[$i]);
 						$image3->cropToRatio(1, 1, 'left', 'bottom');
 						$image3->resize(200,0);
 						$image3->saveChanges();
-					
+						
 					}
 								
 					/*
@@ -111,7 +147,8 @@
 					} catch (fSQLException $e){
 						die("No se ha podido ejecutar la consulta");
 					}
-				}			
+				}		
+				
 				
 	exit("1");
 ?>
