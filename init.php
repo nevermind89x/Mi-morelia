@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors','On');
+error_reporting(0);
+ini_set('display_errors','false');
 date_default_timezone_set('America/New_York');
 define('DS',"/");
 define('ROOT', $_SERVER['DOCUMENT_ROOT'].DS.'adminv3'.DS);
