@@ -1,5 +1,6 @@
 <?php
 include_once 'init.php';
+//comment just to test
 fSession::open();
 $idUser = fSession::get(SESSION_ID_USER);
 if(empty($idUser))
