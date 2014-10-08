@@ -1,6 +1,7 @@
 <?php
 include_once 'init.php';
 fSession::open();
+//Session should be working now
 $idUser = fSession::get(SESSION_ID_USER);
 if(empty($idUser))
 	exit("No tienes permiso de acceder a este archivo.");

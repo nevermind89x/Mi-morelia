@@ -1,4 +1,5 @@
 <?php
+//turn off thissss or what?
 error_reporting(E_ALL);
 ini_set('display_errors','On');
 date_default_timezone_set('America/New_York');
